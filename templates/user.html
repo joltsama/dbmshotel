@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block login %}Log out{% endblock %}
+{% block container %}
+
+    <!-- User  -->
+    <ul id="navigation">
+        <h2> Hello, {{ username }}</h2>
+    </ul>
+
+    <!-- user details -->
+    <ul id="navigation">
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+    </ul>
+    
+{% endblock %}
