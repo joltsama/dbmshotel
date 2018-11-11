@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 
 {% block special %}
-<a class="nav-item nav-link" href="{{ url_for("register") }}">Register</a> 
-<a class="nav-item nav-link" href="{{ url_for("login") }}">Login</a>
+<a class="nav-item nav-link" href="{{ url_for("cancel_booking") }}">Cancel Booking</a>
+<a class="nav-item nav-link" href="{{ url_for("checkstatus") }}">Checkstatus</a>
 {% endblock %}
 
 {% block container %}
     <!-- Hotel Name Decoration -->
-    <h3> Book a room <h3>
-    <form></form>
+    <h2> Kya aapne kabhi hotel book kiya hai?</h2>
+    <img src="{{ url_for('static', filename="uploads/hotel.jpg") }}" class="img-fluid" alt="Responsive image">
 
     <!-- Features -->
-    <div id="features">
-        <img src="">
-    </div>
+    <p>
+        S
+    </p>
+
+    <p>
+        <a href="{{ url_for('book') }}" class="btn btn-lg btn-outline-primary my-3" type="button"> Book a room </a>
+    </p>
 {% endblock %}

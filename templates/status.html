@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block special %}{% endblock %}
+{% block container %}
+
+<p> Showing status for booking ID, {{ rows['bookingid'] }} </p>
+<br>
+    <ul class="row">
+        <div class="col-sm">
+            NAME
+        </div>
+        <div class="col-sm">
+            {{ rows['name'] }}
+        </div>
+    </ul>
+    <ul class="row">
+        <div class="col-sm">
+            EMAIL
+        </div>
+        <div class="col-sm">
+            {{ rows['email'] }}
+        </div>
+    </ul>
+        <ul class="row">
+        <div class="col-sm">
+            PHONE NO.
+        </div>
+        <div class="col-sm">
+            {{ rows['phoneno'] }}
+        </div>
+    </ul>
+    <ul class="row">
+        <div class="col-sm">
+            ROOM NO
+        </div>
+        <div class="col-sm">
+            {{ rows['room'] }}
+        </div>
+    </ul>
+        <ul class="row">
+        <div class="col-sm">
+            CHECK IN
+        </div>
+        <div class="col-sm">
+            {{ rows['checkin'] }}
+        </div>
+    </ul>
+        <ul class="row">
+        <div class="col-sm">
+            CHECK OUT
+        </div>
+        <div class="col-sm">
+            {{ rows['checkout'] }}
+        </div>
+    </ul>
+        </ul>
+        <ul class="row">
+        <div class="col-sm">
+            TOTAL
+        </div>
+        <div class="col-sm">
+            {{ rows['total'] }}
+        </div>
+    </ul>
+
+{% endblock %}

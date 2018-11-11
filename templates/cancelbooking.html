@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block special %}{% endblock %}
+{% block container %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+    <form method = "post" action ="">
+    {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{  form.bookingid.label(class="form-control-label") }}
+            {% if form.bookingid.errors %}
+                {{ form.bookingid(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.bookingid.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.bookingid(class="form-control", placeholder="Enter bookingID") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{  form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}
