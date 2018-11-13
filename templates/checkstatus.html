@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block special %}{% endblock %}
 {% block container %}
-
+    <h4> Check Status</h4>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class=flashes>
@@ -13,7 +13,7 @@
             </div>
         {% endif %}
     {% endwith %}
-    
+    <p> Please enter your BookingID and Check-In date to check status.</p>
     <form method = "POST" action ="">
     {{ form.hidden_tag() }}
         <!-- --------------------------------------- bookingid -->
@@ -49,6 +49,6 @@
         </div>
     </form>
     <p class="container">
-        Your BookingID is your Identity Card Number.
+        Please use your Identity Card Number as your BookingID.
     </p>
 {% endblock %}

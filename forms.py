@@ -32,6 +32,7 @@ class CheckStatus(FlaskForm):
 
 class CancelBooking(FlaskForm):
     bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=10, max=20)])
+    checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
     submit = SubmitField('Cancel')
 
 

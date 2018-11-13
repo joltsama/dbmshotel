@@ -41,17 +41,17 @@ def create_app(test_config=None):
         form = SelectRoom()
         if form.validate_on_submit():
             roomdata={'heads': request.form['heads'],
-            'checkin': request.form['checkin'], 
+            'checkin': request.form['checkin'],
             'checkout': request.form['checkout'],
             'room': request.form['room']}
 
             code=getRoom(request.form['heads'],
-            request.form['checkin'], 
+            request.form['checkin'],
             request.form['checkout'],
             request.form['room'])
             
-            if code['roomno']==None:
-                flash(f"No room available", "fail")
+            if code['roomno']==False:
+                flash(f"No rooms of this type available")
                 return render_template(url_for('selectroom'))
             else:
                 roomdata={**roomdata, **code}
@@ -102,8 +102,11 @@ def create_app(test_config=None):
         if form.validate_on_submit():
             bookingid=request.form['bookingid']
             checkin=request.form['checkin']
-            session['status']=json.dumps({'bookingid':bookingid, 'checkin':checkin}) #just for bill
-            return redirect(url_for('status', bookingid=bookingid, checkin=checkin))
+            if ifBooked(bookingid,checkin)==False:
+                flash(f"Please check your BookingID or Check-In Date")
+            else:
+                session['status']=json.dumps({'bookingid':bookingid, 'checkin':checkin}) #just for bill
+                return redirect(url_for('status', bookingid=bookingid, checkin=checkin))
         return render_template('checkstatus.html', form = form)
 
     @app.route('/status/<bookingid>/<checkin>')
@@ -127,8 +130,15 @@ def create_app(test_config=None):
     def cancel_booking():
         form = CancelBooking()
         if form.validate_on_submit():
-            flash(f"Booking canceled!", "success")
-            return redirect(url_for('home'))
+            bookingid=request.form['bookingid']
+            checkin=request.form['checkin']
+            if ifBooked(bookingid,checkin)==False:
+                flash(f"Please check your BookingID or Check-In Date")
+            else:
+                if cancelBooking(bookingid, checkin):
+                    return redirect(url_for('home'))
+                else:
+                    flash(f"Could not cancel your booking.")
         return render_template('cancelbooking.html', form = form)
 
     @app.route('/user/<username>')

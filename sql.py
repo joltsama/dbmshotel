@@ -126,3 +126,9 @@ def generateBill(cID,inDate):
     }
     #conn.close()
     return(final)
+
+def ifBooked(bookingid, checkin):
+    return True
+
+def cancelBooking(bookingid, checkin):
+    return True
