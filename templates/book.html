@@ -2,18 +2,9 @@
 {% block special %}{% endblock %}
 {% block container %}
     <h3>Please fill in your details.</h3>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class=flashes>
-            {% for message in messages %}
-                <div class="alert alert-primary" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
 
+
+    
         <div class="alert alert-secondary" role="alert">
             <div class="row">
                 <div class="col-sm">

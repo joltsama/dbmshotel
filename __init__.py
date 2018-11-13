@@ -7,7 +7,6 @@ from .forms import BookForm, CheckStatus, CancelBooking, SelectRoom
 from .sql import *
 
 def create_app(test_config=None):
-    # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -24,7 +23,6 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -50,8 +48,7 @@ def create_app(test_config=None):
             code=getRoom(request.form['heads'],
             request.form['checkin'], 
             request.form['checkout'],
-            request.form['room']
-            )
+            request.form['room'])
             
             if code['roomno']==None:
                 flash(f"No room available", "fail")
