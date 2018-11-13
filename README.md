@@ -4,7 +4,7 @@
 ## Installation
 ```base
 $ git clone https://github.com/TarunKS17/dbmshotel.git hotel
-$ pip install flask wtforms
+$ pip install flask wtforms flask_wtf wtforms_components
 $ cd hotel
 $ export FLASK_APP=__init__.py
 $ flask run
