@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block special %}{% endblock %}
 {% block container %}
-<h3>Room search</h3> 
     <form method = "POST" action ="">
     {{ form.hidden_tag() }}
     <!-- --------------------------------------- heads -->
@@ -29,7 +28,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-            {{  form.checkin(class="form-control", placeholder="Checkin date") }}
+            {{  form.checkin(class="form-control", placeholder="Checkin date (yyyy-mm-dd)") }}
             {% endif %}
         </div>
     <!-- --------------------------------------- checkout -->
@@ -43,7 +42,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-            {{  form.checkout(class="form-control", placeholder="Checkout date") }}
+            {{  form.checkout(class="form-control", placeholder="Checkout date (yyyy-mm-dd)") }}
             {% endif %}
         </div>
     <!-- --------------------------------------- room -->
@@ -60,6 +59,42 @@
             {{  form.room(class="form-check") }}
             {% endif %}
         </div>
+        
+<!--             ROOMS                     -->
+<div class="container">
+<div class="row">
+    <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ url_for("static", filename="uploads/1.jpg") }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Room 1</h5>
+                <p class="card-text">TV, King size bed, Breakfast</p>
+                <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ url_for("static", filename="uploads/2.jpg") }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Room 2</h5>
+                <p class="card-text">TV, King size bed</p>
+                <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ url_for("static", filename="uploads/3.jpg") }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Room 3</h5>
+                <p class="card-text">King size bed</p>
+                <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
         <div class="form-group">
             {{  form.submit(class="btn btn-primary") }}

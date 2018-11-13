@@ -14,21 +14,21 @@ class BookForm(FlaskForm):
     #checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
     #checkout = DateField('Checkout Date', validators=[DateRange(min=date.today())])
     #room = RadioField('Room Type', validators=[DataRequired()], choices=[('1','Room1'), ('2','Room2'), ('3','Room3')])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Pay')
 
 
 class SelectRoom(FlaskForm):
     heads = IntegerField('No of adults', validators=[NumberRange(min=1, max=3)])
     checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
     checkout = DateField('Checkout Date', validators=[DateRange(min=date.today())])
-    room = RadioField('Room Type', validators=[DataRequired()], choices=[('1','Room1'), ('2','Room2'), ('3','Room3')])
-    submit = SubmitField('Submit')
+    room = RadioField('Room Type', validators=[DataRequired()], choices=[('1','Room Type 1'), ('2','Room Type 2'), ('3','Room Type 3')])
+    submit = SubmitField('Select')
 
 
 class CheckStatus(FlaskForm):
-    bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=20, max=20)])
+    bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=10, max=20)])
     checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Check')
 
 class CancelBooking(FlaskForm):
     bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=20, max=20)])
