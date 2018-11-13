@@ -1,50 +1,17 @@
 {% extends "base.html" %}
 {% block special %}{% endblock %}
 {% block container %}
-    <h3>Please fill in your details.</h3>
+    
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div class=flashes>
+            <ul class=flashes>
             {% for message in messages %}
-                <div class="alert alert-primary" role="alert">
-                    {{ message }}
-                </div>
+            <li>{{ message }}</li>
             {% endfor %}
-            </div>
+            </ul>
         {% endif %}
     {% endwith %}
 
-        <div class="alert alert-secondary" role="alert">
-            <div class="row">
-                <div class="col-sm">
-                    CHECKIN DATE
-                </div>
-                <div class="col-sm">
-                    {{ roomdata['checkin'] }}
-                </div>
-            </div>
-        </div>
-                <div class="alert alert-secondary" role="alert">
-            <div class="row">
-                <div class="col-sm">
-                    CHECKOUT DATE
-                </div>
-                <div class="col-sm">
-                    {{ roomdata['checkout'] }}
-                </div>
-            </div>
-        </div>
-                <div class="alert alert-secondary" role="alert">
-            <div class="row">
-                <div class="col-sm">
-                    NO OF ADULTS
-                </div>
-                <div class="col-sm">
-                    {{ roomdata['heads'] }}
-                </div>
-            </div>
-        </div>
-    
     <form method = "POST" action ="">
     {{ form.hidden_tag() }}
     <!----------------------------------------- user name -->
@@ -89,6 +56,20 @@
             {{  form.phoneno(class="form-control", placeholder="Enter phoneno") }}
             {% endif %}
         </div>
+    <!-- --------------------------------------- address -->
+        <div class="form-group">
+            {{  form.address.label(class="form-control-label") }}
+            {% if form.address.errors %}
+                {{ form.address(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.address.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.address(class="form-control", placeholder="Enter Address") }}
+            {% endif %}
+        </div>
     <!-- --------------------------------------- identity -->
         <div class="form-group">
             {{  form.identity.label(class="form-control-label") }}
@@ -103,26 +84,52 @@
             {{  form.identity(class="form-control", placeholder="IdentityCard Number") }}
             {% endif %}
         </div>
-
-        <div class="alert alert-info" role="alert">
-            <div class="row">
-                <div class="col-sm">
-                        TOTAL PAYABLE AMOUNT
+    <!-- --------------------------------------- checkin -->
+        <div class="form-group">
+            {{  form.checkin.label(class="form-control-label") }}
+            {% if form.checkin.errors %}
+                {{ form.checkin(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.checkin.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
                 </div>
-                <div class="col-sm">
-                    {{ roomdata['amount'] }}
+            {% else %}
+            {{  form.checkin(class="form-control", placeholder="Checkin date") }}
+            {% endif %}
+        </div>
+    <!-- --------------------------------------- checkout -->
+        <div class="form-group">
+            {{  form.checkout.label(class="form-control-label") }}
+            {% if form.checkout.errors %}
+                {{ form.checkout(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.checkout.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
                 </div>
-            </div>
+            {% else %}
+            {{  form.checkout(class="form-control", placeholder="Checkout date") }}
+            {% endif %}
+        </div>
+    <!-- --------------------------------------- room -->
+        <div class="form-group">
+            {{  form.room.label(class="form-check-label form-check-inline") }}
+            {% if form.room.errors %}
+                {{ form.room(class="form-check form-check-lg") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.room.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.room(class="form-check") }}
+            {% endif %}
         </div>
 
         <div class="form-group">
             {{  form.submit(class="btn btn-primary") }}
         </div>
     </form>
-    <p class="container">
-        Your BookingID is your Identity Card Number.
-    </p>
-
-
 
 {% endblock %}

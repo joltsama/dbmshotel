@@ -7,15 +7,20 @@
 
 {% block container %}
     <!-- Hotel Name Decoration -->
-    <h2> Kya aapne kabhi hotel book kiya hai?</h2>
+    <h2> XYZ Hotel</h2>
     <img src="{{ url_for('static', filename="uploads/hotel.jpg") }}" class="img-fluid" alt="Responsive image">
 
     <!-- Features -->
     <p>
-        S
+        Hotels.com is a leading online accommodation site. 
+        We’re passionate about travel. 
+        Every day we inspire and reach millions of travelers across 90 local websites in 41 languages. 
+        So when it comes to booking the perfect hotel, vacation rental, resort, apartment, guest house or treehouse  – we’ve got you covered. 
+        With hundreds of thousands of properties in over 200 countries and territories, we provide incomparable choice with a Price Guarantee. 
+        Our site is fun and simple to use and we offer innovative online tools and a top rated mobile app.
     </p>
 
     <p>
-        <a href="{{ url_for('book') }}" class="btn btn-lg btn-outline-primary my-3" type="button"> Book a room </a>
+        <a href="{{ url_for('selectroom') }}" class="btn btn-lg btn-outline-primary my-3" type="button"> Book a room </a>
     </p>
 {% endblock %}

@@ -2,7 +2,7 @@
 {% block special %}{% endblock %}
 {% block container %}
 
-<p> Booking status </p>
+<p> <h2> Invoice </h2> </p>
 <br>
     <ul class="row">
     <div class="col-sm">
@@ -29,14 +29,6 @@
         </div>
     </ul>
     <ul class="row">
-    <div class="col-sm">
-            ROOM NO
-        </div>
-        <div class="col-sm">
-            {{ rows['room'] }}
-        </div>
-    </ul>
-    <ul class="row">
         <div class="col-sm">
             CHECK IN
         </div>
@@ -52,7 +44,17 @@
             {{ rows['checkout'] }}
         </div>
     </ul>
-    <a href="{{ url_for('bill') }}" class="btn btn-lg btn-outline-primary my-3" type="button"> Bill </a>
+    <hr>
+        <div class="alert alert-info" role="alert">
+            <div class="row">
+                <div class="col-sm">
+                        TOTAL AMOUNT PAID
+                </div>
+                <div class="col-sm">
+                    {{ rows['amount'] }}
+                </div>
+            </div>
+        </div>
     
 
 

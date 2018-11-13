@@ -1,76 +1,13 @@
-import sqlite3, os
-conn = sqlite3.connect('hotel.db')
+from datetime import date
+import sqlite3
+conn = sqlite3.connect('hotel.db', check_same_thread=False)
 cursor = conn.cursor()
-     
-def createtable():
-		
-	conn = sqlite3.connect('hotel.db')
 
-	conn.executescript("""CREATE TABLE Customers(
-		cID VARCHAR(30) NOT NULL,
-		name VARCHAR(30) NOT NULL,
-		email VARCHAR(30) NOT NULL,
-		phNo int,
-		inDate DATE NOT NULL,
-		outDate DATE NOT NULL,
-		CHECK(inDate<outDate),
-		PRIMARY KEY(cID)
-	);CREATE TABLE Rooms(
-		roomNo int NOT NULL,
-		cID int DEFAULT NULL,
-		category int,
-		availability VARCHAR(3) DEFAULT 'yes',
-		PRIMARY KEY(roomNo),
-		FOREIGN KEY(cID) REFERENCES Customers(cID),
-		FOREIGN KEY(category) REFERENCES Roomcategory(category)
-	);""")
+def getRoom(heads, inDate, outDate, category):
+    inD = date(*map(int, inDate.split('-')))
+    outD = date(*map(int, outDate.split('-')))
+    days=(outD-inD).days
 
-	conn.close()
-
-def checkdb():
-    if not os.path.isfile("hotel.db"):
-        createtable()
-
-def bill(cID):
-    sql="select roomno, julianday(outdate)-julianday(indate) as dd from customers where cid='"+cID+"';"
-    cursor.execute(sql)
-    x=cursor.fetchall()
-    for y in x:
-        print (y)
-    rn=x[0][0]
-    days=x[0][1]
-    sql="select category from rooms where roomno="+str(rn)
-    cursor.execute(sql)
-    x=cursor.fetchall()
-    ct=x[0]
-    rent=1000
-    if(ct==1):
-        rent=2500
-    elif(ct==2):
-        rent=1500
-    elif(ct==3):
-        rent=1000
-
-    sql="select * from customers where cid='"+cID+"';"
-    cursor.execute(sql)
-    x=cursor.fetchone()
-
-    final={
-        "identity" :  x[0],
-        "name" : x[1],
-        "email" : x[2],
-        "phoneno" : x[3],
-        "checkin" : x[4],
-        "checkout" : x[5],
-        "room" : x[6],
-        "total" : days*rent
-    }
-
-    return(final)
-
-def bookRoom(cID,name,email,phNo,inDate,outDate,category):
-    conn = sqlite3.connect('hotel.db')
-    cursor = conn.cursor()
     sql = "select roomNo from Rooms where category="+str(category)
     cursor.execute(sql)
     roomNo=cursor.fetchall()
@@ -94,10 +31,98 @@ def bookRoom(cID,name,email,phNo,inDate,outDate,category):
                         break
 
     if(r==-1):
-        return(r) #fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        r=None
 
-    else:
-        sql="INSERT INTO customers(cid,name,email,phno,indate,outdate,roomno) VALUES(?,?,?,?,?,?,?)"
-        cursor.execute(sql,(cID,name,phNo,inDate,outDate,r))
-        conn.commit()
-        return r
+    cursor.execute("""SELECT basePrice,pricePerHead,pricePerDay
+        FROM Price WHERE category="""+str(category)
+    )
+    x=cursor.fetchone()
+    bsp=x[0]
+    pph=x[1]
+    ppd=x[2]
+    total=int(bsp)+int(pph)*int(heads)+int(ppd)*int(days)
+    final={
+        "roomno" : r,
+        "amount" : total
+    }
+    #conn.close()
+    return (final)
+
+
+def bookRoom(cID,name,phNo,email,heads,inDate,outDate,category,roomNo,amount):
+    
+    sql="INSERT INTO customers(cid,name,phno,email,heads,indate,outdate,roomno) VALUES(?,?,?,?,?,?,?,?)"
+    cursor.execute(sql,(cID,name,phNo,email,heads,inDate,outDate,roomNo))
+
+    sql="SELECT datetime('now')"
+    cursor.execute(sql)
+    x=cursor.fetchone()
+    datenow=x[0]
+
+    sql="INSERT INTO Bills(amount,generationdate) VALUES(?,?)"
+    cursor.execute(sql,(amount,datenow))
+
+    sql="SELECT COUNT(*) FROM Bills"
+    cursor.execute(sql)
+    x=cursor.fetchone()
+    inId=x[0]
+
+    sql="INSERT INTO Payment (cID,invoiceID) VALUES(?,?)"
+    cursor.execute(sql,(cID,inId))
+
+    conn.commit()
+    #conn.close()
+
+
+def checkStatus(cID,inDate):
+    sql="select * from customers where cid='"+str(cID)+"'"+"AND inDate='"+str(inDate)+"'"
+    cursor.execute(sql)
+    x=cursor.fetchone()
+
+    final={
+        "name" : x[1],
+        "phoneno" : x[3],
+        "email" : x[2],
+        "checkin" : x[4],
+        "checkout" : x[5],
+        "room" : x[7]
+    }
+    #conn.close()
+    return(final)
+
+
+def generateBill(cID,inDate):
+
+    sql="select * from customers where cid='"+str(cID)+"'"+"AND inDate='"+str(inDate)+"'"
+    cursor.execute(sql)
+    x=cursor.fetchone()
+
+    inD = date(*map(int, inDate.split('-')))
+    outD = date(*map(int, x[5].split('-')))
+    days=(outD-inD).days
+
+    sql="select category from rooms where roomno="+str(x[7])
+    cursor.execute(sql)
+    y=cursor.fetchone()
+
+    category=y[0]
+
+    cursor.execute("""SELECT basePrice,pricePerHead,pricePerDay
+        FROM Price WHERE category="""+str(category)
+    )
+    y=cursor.fetchone()
+    bsp=y[0]
+    pph=y[1]
+    ppd=y[2]
+    total=int(bsp)+int(pph)*int(x[6])+int(ppd)*int(days)
+
+    final={
+        "name" : x[1],
+        "phoneno" : x[3],
+        "email" : x[2],
+        "checkin" : x[4],
+        "checkout" : x[5],
+        "amount" : total
+    }
+    #conn.close()
+    return(final)

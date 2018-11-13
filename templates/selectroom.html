@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block special %}{% endblock %}
+{% block container %}
+<h3>Room search</h3> 
+    <form method = "POST" action ="">
+    {{ form.hidden_tag() }}
+    <!-- --------------------------------------- heads -->
+        <div class="form-group">
+            {{  form.heads.label(class="form-control-label") }}
+            {% if form.heads.errors %}
+                {{ form.heads(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.heads.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.heads(class="form-control", placeholder="No. of adults") }}
+            {% endif %}
+        </div>
+    <!-- --------------------------------------- checkin -->
+        <div class="form-group">
+            {{  form.checkin.label(class="form-control-label") }}
+            {% if form.checkin.errors %}
+                {{ form.checkin(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.checkin.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.checkin(class="form-control", placeholder="Checkin date") }}
+            {% endif %}
+        </div>
+    <!-- --------------------------------------- checkout -->
+        <div class="form-group">
+            {{  form.checkout.label(class="form-control-label") }}
+            {% if form.checkout.errors %}
+                {{ form.checkout(class="form-control form-control-lg is-invalid") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.checkout.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.checkout(class="form-control", placeholder="Checkout date") }}
+            {% endif %}
+        </div>
+    <!-- --------------------------------------- room -->
+        <div class="form-group">
+            {{  form.room.label(class="form-check-label form-check-inline") }}
+            {% if form.room.errors %}
+                {{ form.room(class="form-check form-check-lg") }}
+                <div class = "invalid-feedback">
+                    {% for error in form.room.errors %}
+                        <span>{{ error }} </span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            {{  form.room(class="form-check") }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{  form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+{% endblock %}
