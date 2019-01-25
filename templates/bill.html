@@ -4,14 +4,25 @@
 
 <p> <h2> Invoice </h2> </p>
 <br>
+
     <ul class="row">
-    <div class="col-sm">
+        <div class="col-sm">
+            INVOICE ID
+        </div>
+        <div class="col-sm">
+            {{ rows['invoiceid'] }}
+        </div>
+    </ul>
+    
+    <ul class="row">
+        <div class="col-sm">
             NAME
         </div>
         <div class="col-sm">
             {{ rows['name'] }}
         </div>
     </ul>
+
     <ul class="row">
         <div class="col-sm">
             EMAIL

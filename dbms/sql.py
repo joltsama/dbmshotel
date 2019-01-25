@@ -122,7 +122,8 @@ def generateBill(cID,inDate):
         x=x[0]
         inv=x[5]
 
-        sql="select * from bills where invoiceid='"+str(inv)+"'"
+        #sql="select * from bills where invoiceid='"+str(inv)+"'"
+        sql="select * from bills where invoiceid='{}'".format(str(inv))
         cursor.execute(sql)
         y=cursor.fetchone()
 
@@ -159,22 +160,3 @@ def cancelBooking(inID):
     conn.commit()
 
     return True
-
-# getRoom(2,"2018-11-15","2018-11-17",1)
-# getRoom(2,"2018-11-15","2018-11-17",2)
-# getRoom(2,"2018-11-15","2018-11-17",3)
-
-# bookRoom("c1","n1",7894561230,"a@b.c",2,"2018-11-15","2018-11-17",1,501,2600)
-# bookRoom("c2","n2",7894561230,"a@b.c",2,"2018-11-15","2018-11-17",2,301,1900)
-# bookRoom("c3","n3",7894561230,"a@b.c",2,"2018-11-15","2018-11-17",3,101,1500)
-# bookRoom("c4","n4",7894561230,"a@b.c",2,"2018-11-18","2018-11-24",1,505,4600)
-
-# generateBill("c1","2018-11-15")
-# checkStatus("c2","2018-11-15")
-# checkStatus("c3","2018-11-15")
-# checkStatus("c4","2018-11-18")
-
-# generateBill("c1","2018-11-15")
-# generateBill("c2","2018-11-15")
-# generateBill("c3","2018-11-15")
-# generateBill("c4","2018-11-18")

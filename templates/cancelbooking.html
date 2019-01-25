@@ -2,7 +2,7 @@
 {% block special %}{% endblock %}
 {% block container %}
 <h4> Cancel Booking</h4>
-    <p>Please enter your BookingID and Checkin Date.</p>
+    <p>Please enter your Invoice ID.</p>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class=flashes>
@@ -15,39 +15,22 @@
     
     <form method = "POST" action ="">
     {{ form.hidden_tag() }}
-        <!-- --------------------------------------- bookingid -->
+        <!-- --------------------------------------- invoiceid -->
         <div class="form-group">
-            {{  form.bookingid.label(class="form-control-label") }}
-            {% if form.bookingid.errors %}
-                {{ form.bookingid(class="form-control form-control-lg is-invalid") }}
+            {{  form.invoiceid.label(class="form-control-label") }}
+            {% if form.invoiceid.errors %}
+                {{ form.invoiceid(class="form-control form-control-lg is-invalid") }}
                 <div class = "invalid-feedback">
-                    {% for error in form.bookingid.errors %}
+                    {% for error in form.invoiceid.errors %}
                         <span>{{ error }} </span>
                     {% endfor %}
                 </div>
             {% else %}
-            {{  form.bookingid(class="form-control", placeholder="Enter bookingID") }}
-            {% endif %}
-        </div>
-        <!-- --------------------------------------- checkin -->
-        <div class="form-group">
-            {{  form.checkin.label(class="form-control-label") }}
-            {% if form.checkin.errors %}
-                {{ form.checkin(class="form-control form-control-lg is-invalid") }}
-                <div class = "invalid-feedback">
-                    {% for error in form.checkin.errors %}
-                        <span>{{ error }} </span>
-                    {% endfor %}
-                </div>
-            {% else %}
-            {{  form.checkin(class="form-control", placeholder="Checkin date") }}
+            {{  form.invoiceid(class="form-control", placeholder="Enter invoiceid") }}
             {% endif %}
         </div>
         <div class="form-group">
             {{  form.submit(class="btn btn-primary") }}
         </div>
     </form>
-    <p class="container">
-        Please use your Identity Card Number as your BookingID.
-    </p>
 {% endblock %}

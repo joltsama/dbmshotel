@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, DateField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, NumberRange
+from wtforms.validators import DataRequired, Length, Email, NumberRange, EqualTo
 from wtforms_components import DateRange
 from datetime import datetime, date
 
@@ -24,15 +24,28 @@ class SelectRoom(FlaskForm):
     room = RadioField('Room Type', validators=[DataRequired()], choices=[('1','Room Type 1'), ('2','Room Type 2'), ('3','Room Type 3')])
     submit = SubmitField('Select')
 
-
 class CheckStatus(FlaskForm):
-    bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=10, max=20)])
+    bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=1, max=20)])
     checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
     submit = SubmitField('Check')
 
+class AdminLogin(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Check')
+
+
+class AdminCP(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=20)])
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    password = PasswordField('New Password', validators=[DataRequired(), EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    submit = SubmitField('Submit')
+
 class CancelBooking(FlaskForm):
-    bookingid = StringField('Booking ID', validators=[DataRequired(), Length(min=10, max=20)])
-    checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
-    submit = SubmitField('Cancel')
+    invoiceid = StringField('Invoice ID', validators=[DataRequired(), Length(min=1, max=20)])
+    #checkin = DateField('Checkin Date', validators=[DateRange(min=date.today())])
+    submit = SubmitField('Submit')
 
 
